@@ -1,10 +1,10 @@
-## Universal-image-loader Mason ĞŞ¸´°æ
+## Universal-image-loader Mason ä¿®å¤ç‰ˆ
 
 ------
-1¡¢»ùÓÚ°æ±¾universal-image-loader-1.9.2
+1ã€åŸºäºç‰ˆæœ¬universal-image-loader-1.9.2
 
-2¡¢ĞŞ¸´ÁËÏÂÃæÁ½¸öbug
-###1¡¢Could not validate certificate signature
+2ã€ä¿®å¤äº†ä¸‹é¢ä¸¤ä¸ªbug
+###1ã€Could not validate certificate signature
 
  org.bouncycastle.jce.exception.ExtCertPathValidatorException: Could not validate certificate signature.
  javax.net.ssl.SSLHandshakeException: org.bouncycastle.jce.exception.ExtCertPathValidatorException: Could not validate certificate signature.
@@ -45,4 +45,11 @@
  	at org.bouncycastle.jce.provider.RFC3280CertPathUtilities.processCertA(RFC3280CertPathUtilities.java:1496)
  	... 23 more
 
-##2¡¢ImageLoader Image can't be decoded
+##2ã€ImageLoader Image can't be decoded
+
+
+------
+##æ¬¢è¿æ‰¹è¯„æŒ‡æ­£
+
+åšå®¢ï¼šhttp://blog.csdn.net/masonblog
+é‚®ç®±ï¼šMasonLiuChn@gmail.com
