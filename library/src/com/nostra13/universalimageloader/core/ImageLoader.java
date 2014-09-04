@@ -234,8 +234,11 @@ public class ImageLoader {
 		engine.prepareDisplayTaskFor(imageAware, memoryCacheKey);
 
 		listener.onLoadingStarted(uri, imageAware.getWrappedView());
-
-		Bitmap bmp = configuration.memoryCache.get(memoryCacheKey);
+		//这里有Mason修改，意思是 如果没有存到内存也就不从内存取
+		Bitmap bmp=null;
+		if (options.isCacheInMemory()) {
+			bmp = configuration.memoryCache.get(memoryCacheKey);
+		}
 		if (bmp != null && !bmp.isRecycled()) {
 			if (configuration.writeLogs) L.d(LOG_LOAD_IMAGE_FROM_MEMORY_CACHE, memoryCacheKey);
 

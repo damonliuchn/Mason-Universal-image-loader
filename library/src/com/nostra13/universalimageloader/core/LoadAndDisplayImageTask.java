@@ -124,7 +124,7 @@ final class LoadAndDisplayImageTask implements Runnable, IoUtils.CopyListener {
 	public void run() {
 		if (waitIfPaused()) return;
 		if (delayIfNeed()) return;
-
+		System.out.println("run ");
 		ReentrantLock loadFromUriLock = imageLoadingInfo.loadFromUriLock;
 		log(LOG_START_DISPLAY_IMAGE_TASK);
 		if (loadFromUriLock.isLocked()) {
@@ -132,11 +132,16 @@ final class LoadAndDisplayImageTask implements Runnable, IoUtils.CopyListener {
 		}
 
 		loadFromUriLock.lock();
-		Bitmap bmp;
+		Bitmap bmp=null;
 		try {
 			checkTaskNotActual();
-
-			bmp = configuration.memoryCache.get(memoryCacheKey);
+			//这里有Mason修改，意思是 如果没有存到内存也就不从内存取
+			if (options.isCacheInMemory()) {
+				bmp = configuration.memoryCache.get(memoryCacheKey);
+				System.out.println("cache");
+			}else{
+				System.out.println("no cache");
+			}
 			if (bmp == null) {
 				bmp = tryLoadBitmap();
 				if (bmp == null) return; // listener callback already was fired
@@ -218,12 +223,12 @@ final class LoadAndDisplayImageTask implements Runnable, IoUtils.CopyListener {
 	}
 
 	private Bitmap tryLoadBitmap() throws TaskCancelledException {
-		File imageFile = getImageFileInDiscCache();
-
+		
+		File imageFile=getImageFileInDiscCache();;
 		Bitmap bitmap = null;
 		try {
 			String cacheFileUri = Scheme.FILE.wrap(imageFile.getAbsolutePath());
-			if (imageFile.exists()) {
+			if (imageFile.exists()&&options.isCacheOnDisc()) {//这里有Mason修改，意思是 如果没有存到sd也就不从sd取
 				log(LOG_LOAD_IMAGE_FROM_DISC_CACHE);
 				loadedFrom = LoadedFrom.DISC_CACHE;
 
@@ -233,7 +238,7 @@ final class LoadAndDisplayImageTask implements Runnable, IoUtils.CopyListener {
 			if (bitmap == null || bitmap.getWidth() <= 0 || bitmap.getHeight() <= 0) {
 				log(LOG_LOAD_IMAGE_FROM_NETWORK);
 				loadedFrom = LoadedFrom.NETWORK;
-
+				//存到内存中
 				String imageUriForDecoding =
 						options.isCacheOnDisc() && tryCacheImageOnDisc(imageFile) ? cacheFileUri : uri;
 

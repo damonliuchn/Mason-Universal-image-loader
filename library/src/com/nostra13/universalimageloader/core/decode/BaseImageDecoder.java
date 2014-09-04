@@ -82,6 +82,7 @@ public class BaseImageDecoder implements ImageDecoder {
 		}
 
 		if (decodedBitmap == null) {
+			////////////////////////////////////////////////////////////////
 			//Image can't be decoded [https://lh3.ggpht.com/FGB4woigS1kvx2RQb0xky_FurCmfBRx3E_geYkvRWfpL-zftBUeS6mHajx_Ljdjdrg=h310-rw_480x800]
 			L.e(ERROR_CANT_DECODE_IMAGE, decodingInfo.getImageKey()+"][go on fighting");
 			try{
@@ -91,7 +92,6 @@ public class BaseImageDecoder implements ImageDecoder {
 				}else{
 					imageStream=HttpUtil.urlByGet2InputStream(a[0]);
 				}
-				
 				decodedBitmap=BitmapFactory.decodeStream(imageStream);
 				if(decodedBitmap==null){
 					L.e(ERROR_CANT_DECODE_IMAGE, decodingInfo.getImageKey()+"][go on fighting failed");
@@ -102,7 +102,7 @@ public class BaseImageDecoder implements ImageDecoder {
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-			
+			//////////////////////////////////////////////////////////////
 			
 		} else {
 			decodedBitmap = considerExactScaleAndOrientaiton(decodedBitmap, decodingInfo, imageInfo.exif.rotation,

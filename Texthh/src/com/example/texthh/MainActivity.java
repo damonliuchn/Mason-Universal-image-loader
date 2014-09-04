@@ -13,6 +13,9 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 
 public class MainActivity extends Activity {
@@ -22,11 +25,31 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		//new  TS().execute();
-		ImageView a=(ImageView)findViewById(R.id.test);
+		final ImageView a=(ImageView)findViewById(R.id.test);
 		//ImageLoader.getInstance().displayImage("https://img.mingdao.com/ProjectLogo/adccb6a0-99dc-4991-8200-c0531f943dc0.gif?rax=29",a);
 		//ImageLoader.getInstance().displayImage("https://img.mingdao.com/UserAvatar/48X48/secretary.gif", a);
 		//ImageLoader.getInstance().displayImage("drawable://" + R.drawable.secretary, a);
-		ImageLoader.getInstance().displayImage("http://www.baidu.com/img/bdlogo.gif", a,Ap.getA(this).getNoCacheOptions());
+		//ImageLoader.getInstance().displayImage("http://www.baidu.com/img/bdlogo.gif", a,Ap.getA(this).getNoCacheOptions());
+		
+		ImageLoader.getInstance().displayImage("file:///storage/sdcard0/Android/data/com.mingdao/mycache/myinfo.png", a);
+		Button testB=(Button)findViewById(R.id.testB);
+		testB.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				ImageLoader.getInstance().displayImage("file:///storage/sdcard0/Android/data/com.mingdao/mycache/myinfo.png", a,Ap.getA(MainActivity.this).getNoCacheOptions());
+			}
+		});
+		Button testC=(Button)findViewById(R.id.testC);
+		testC.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				ImageLoader.getInstance().displayImage("file:///storage/sdcard0/Android/data/com.mingdao/mycache/myinfo.png", a);
+			}
+		});
 		//System.out.println("dd");
 	}
 	// 将InputStream转换成Bitmap
